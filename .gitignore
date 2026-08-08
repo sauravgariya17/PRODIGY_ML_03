@@ -1,0 +1,27 @@
+venv/
+.venv/
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+
+# Dataset files
+data/raw/*
+data/processed/*
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+
+# Generated model and reports
+models/*.joblib
+reports/*.json
+reports/*.png
+
+# Flask uploads
+static/uploads/*
+!static/uploads/.gitkeep
+
+# OS/editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+.env

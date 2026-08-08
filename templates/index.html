@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dogs vs Cats - SVM Classifier</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            background: #f4f6f8;
+        }
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 14px;
+            box-shadow: 0 5px 20px rgba(0,0,0,.08);
+        }
+        h1 { margin-top: 0; }
+        button {
+            padding: 12px 20px;
+            border: 0;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        .result {
+            margin-top: 25px;
+            padding: 18px;
+            border-radius: 10px;
+            background: #eef7ee;
+        }
+        .error {
+            margin-top: 25px;
+            padding: 15px;
+            border-radius: 10px;
+            background: #ffecec;
+        }
+        img {
+            max-width: 350px;
+            max-height: 350px;
+            margin-top: 20px;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+<div class="card">
+    <h1>🐱 Dogs vs Cats — SVM</h1>
+    <p>Upload an image and the trained HOG + RBF SVM will classify it.</p>
+
+    <form method="POST" enctype="multipart/form-data">
+        <input type="file" name="image" accept=".jpg,.jpeg,.png,.webp" required>
+        <br><br>
+        <button type="submit">Predict</button>
+    </form>
+
+    {% if error %}
+        <div class="error">{{ error }}</div>
+    {% endif %}
+
+    {% if prediction %}
+        <div class="result">
+            <h2>Prediction: {{ prediction }}</h2>
+            {% if confidence is not none %}
+                <p>Confidence: {{ "%.2f"|format(confidence * 100) }}%</p>
+            {% endif %}
+            {% if uploaded_name %}
+                <img src="{{ url_for('static', filename='uploads/' + uploaded_name) }}" alt="Uploaded image">
+            {% endif %}
+        </div>
+    {% endif %}
+</div>
+</body>
+</html>
